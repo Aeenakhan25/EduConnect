@@ -1,0 +1,20 @@
+@inherits LayoutComponentBase
+@using AcademicWebPortal.Interfaces
+@using AcademicWebPortal.Models
+@implements IDisposable
+
+<div class="page container-fluid p-0">
+    <div class="row g-0">
+        <div class="col-md-3 col-lg-2 sidebar-column bg-dark">
+            <NavMenu />
+        </div>
+
+        <div class="col-md-9 col-lg-10 main-column p-4">
+            <main role="main">
+                <CascadingValue Value="AuthStateService">
+                    @Body
+                </CascadingValue>
+            </main>
+        </div>
+    </div>
+</div>

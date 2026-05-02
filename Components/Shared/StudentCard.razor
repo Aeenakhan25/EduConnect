@@ -1,0 +1,28 @@
+@using AcademicWebPortal.Models
+
+<div class="card shadow-sm border-0 h-100 student-card">
+    <div class="card-body p-4 text-center">
+        <div class="avatar-circle mx-auto mb-3 bg-primary-subtle text-primary">
+            @Student.FullName[0]
+        </div>
+        <h5 class="fw-bold mb-1">@Student.FullName</h5>
+        <p class="text-muted small mb-3">@Student.StudentId</p>
+        
+        <div class="d-flex justify-content-around bg-light rounded p-2 mb-3">
+            <div class="text-center">
+                <small class="text-muted d-block">Semester</small>
+                <span class="fw-bold">@Student.CurrentSemester</span>
+            </div>
+            <div class="text-center border-start ps-3">
+                <small class="text-muted d-block">CGPA</small>
+                <span class="badge bg-success">@Student.CGPA.ToString("F2")</span>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button class="btn btn-outline-primary btn-sm" @onclick="HandleViewDetails">
+                View Profile
+            </button>
+        </div>
+    </div>
+</div>

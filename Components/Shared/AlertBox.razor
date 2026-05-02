@@ -1,0 +1,15 @@
+@if (!IsHidden)
+{
+    <div class="alert alert-@Type.ToString().ToLower() alert-dismissible fade show shadow-sm" role="alert">
+        @if (ShowIcon)
+        {
+            <i class="bi @GetIcon() me-2"></i>
+        }
+        @Message
+        <button type="button" class="btn-close" @onclick="Dismiss"></button>
+    </div>
+}
+
+@code {
+    public enum AlertType { Success, Danger, Warning, Info }
+}

@@ -1,0 +1,93 @@
+@page "/admin/students/{Id:int}"
+@using AcademicWebPortal.Models
+@using AcademicWebPortal.Interfaces
+
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-4">
+        <button class="btn btn-outline-secondary me-3" @onclick="GoBack">
+            <i class="bi bi-arrow-left"></i> Back
+        </button>
+        <h2 class="mb-0">Student Profile</h2>
+    </div>
+
+    @if (Student == null)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-muted">Loading student data...</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <!-- Sidebar: Profile Summary -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body text-center p-4">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; font-size: 2rem;">
+                            @Student.FullName[0]
+                        </div>
+                        <h4 class="fw-bold">@Student.FullName</h4>
+                        <p class="text-muted">@Student.StudentId</p>
+                        <hr>
+                        <div class="row text-start mt-3">
+                            <div class="col-6 mb-2 text-muted small">Email</div>
+                            <div class="col-6 mb-2">@Student.Email</div>
+                            <div class="col-6 mb-2 text-muted small">Current Semester</div>
+                            <div class="col-6 mb-2">@Student.CurrentSemester</div>
+                            <div class="col-6 mb-2 text-muted small">CGPA</div>
+                            <div class="col-6 mb-2"><span class="badge bg-success">@Student.CGPA.ToString("F2")</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content: Academic Records -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 fw-bold">Enrollments & Grades</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Course Code</th>
+                                        <th>Course Title</th>
+                                        <th>Semester</th>
+                                        <th>Grade</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (!CourseRecords.Any())
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center py-4 text-muted">No academic records found for this student.</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var record in CourseRecords)
+                                        {
+                                            <tr>
+                                                <td><strong>@record.Code</strong></td>
+                                                <td>@record.Title</td>
+                                                <td>@record.Semester</td>
+                                                <td>
+                                                    <span class="badge bg-info text-dark">@record.LetterGrade</span>
+                                                </td>
+                                                <td>@record.Score.ToString("F1")</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

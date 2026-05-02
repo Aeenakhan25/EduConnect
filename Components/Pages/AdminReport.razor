@@ -1,0 +1,58 @@
+@page "/admin/reports/grades"
+@using AcademicWebPortal.Models
+@using AcademicWebPortal.Interfaces
+@using AcademicWebPortal.Components.Shared
+
+<div class="container mt-4">
+    <h2 class="mb-4">Academic Performance Report</h2>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0">All Students (Sorted by CGPA)</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Full Name</th>
+                            <th>Semester</th>
+                            <th class="text-center">CGPA</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in StudentsByPerformance)
+                        {
+                            <tr>
+                                <td><strong>@student.StudentId</strong></td>
+                                <td>@student.FullName</td>
+                                <td>@student.CurrentSemester</td>
+                                <td class="text-center">
+                                    <span class="fw-bold fs-5 @(student.CGPA >= 3.5 ? "text-success" : "text-dark")">
+                                        @student.CGPA.ToString("F2")
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (student.CGPA >= 3.5)
+                                    {
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success">Dean's List</span>
+                                    }
+                                    else if (student.CGPA < 2.0)
+                                    {
+                                        <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger">Probation</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill bg-light text-dark border">Regular</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+@page "/student/grades"
+@using AcademicWebPortal.Models
+@using AcademicWebPortal.Interfaces
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Grades</h2>
+        <div class="text-end">
+            <span class="text-muted">Overall CGPA:</span>
+            <h3 class="text-primary mb-0">@CalculatedCGPA.ToString("F2")</h3>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Title</th>
+                            <th>Credits</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var record in Grades)
+                        {
+                            <tr>
+                                <td><strong>@record.Course?.CourseCode</strong></td>
+                                <td>@record.Course?.Title</td>
+                                <td>@record.Course?.Credits</td>
+                                <td>@record.Score</td>
+                                <td>
+                                    <span class="badge @GetGradeColor(record.LetterGrade)">@record.LetterGrade</span>
+                                </td>
+                            </tr>
+                        }
+                        @if (!Grades.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">You haven't received any grades yet.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

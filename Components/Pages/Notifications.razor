@@ -1,0 +1,50 @@
+@page "/notifications"
+@using AcademicWebPortal.Models
+@using AcademicWebPortal.Interfaces
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Notifications Center</h2>
+        <button class="btn btn-outline-secondary btn-sm" @onclick="LoadNotifications">
+            <i class="bi bi-arrow-clockwise"></i> Refresh
+        </button>
+    </div>
+
+    @if (!NotificationsList.Any())
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-bell-slash fs-1 text-muted"></i>
+                <h4 class="mt-3 text-muted">No notifications found.</h4>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="list-group shadow-sm border-0">
+            @foreach (var note in NotificationsList)
+            {
+                <div class="list-group-item list-group-item-action p-4 border-0 mb-2 rounded shadow-sm @(note.IsRead ? "opacity-75" : "border-start border-4 border-primary")">
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <h5 class="mb-1 @(note.IsRead ? "text-muted" : "fw-bold")">
+                            @note.Type 
+                        </h5>
+                        <small class="text-muted">@note.Timestamp.ToString("f")</small>
+                    </div>
+                    <p class="mb-2 fs-5">@note.Message</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge @GetBadgeClass(note.Type)">@note.Type</span>
+                        @if (!note.IsRead)
+                        {
+                            <button class="btn btn-link btn-sm p-0" @onclick="() => MarkAsRead(note.Id)">Mark as Read</button>
+                        }
+                        else
+                        {
+                            <span class="text-success small"><i class="bi bi-check-all"></i> Read</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

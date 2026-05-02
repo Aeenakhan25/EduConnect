@@ -1,0 +1,20 @@
+@if (IsVisible)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.5)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg border-0">
+                <div class="modal-header @HeaderClass text-white">
+                    <h5 class="modal-title">@Title</h5>
+                    <button type="button" class="btn-close btn-close-white" @onclick="Cancel"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <p class="lead mb-0">@Message</p>
+                </div>
+                <div class="modal-footer border-0 pb-4 justify-content-center">
+                    <button type="button" class="btn btn-light px-4" @onclick="Cancel">Cancel</button>
+                    <button type="button" class="btn @ButtonClass px-4" @onclick="Confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

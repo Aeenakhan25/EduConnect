@@ -1,0 +1,41 @@
+@using AcademicWebPortal.Interfaces
+@using AcademicWebPortal.Models
+@implements IDisposable
+
+<div class="dropdown me-3">
+    <button class="btn btn-outline-light position-relative" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-bell-fill"></i>
+        @if (UnreadCount > 0)
+        {
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                @UnreadCount
+            </span>
+        }
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-0" aria-labelledby="notificationDropdown" style="width: 300px; max-height: 400px; overflow-y: auto;">
+        <li class="p-3 border-bottom bg-light">
+            <h6 class="mb-0 fw-bold">Notifications</h6>
+        </li>
+        @if (!Notifications.Any())
+        {
+            <li class="p-4 text-center text-muted">
+                <small>No notifications yet.</small>
+            </li>
+        }
+        else
+        {
+            @foreach (var note in Notifications)
+            {
+                <li>
+                    <button class="dropdown-item p-3 border-bottom @(note.IsRead ? "" : "bg-light")" @onclick="() => MarkAsRead(note.Id)">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <span class="badge @GetBadgeClass(note.Type)">@note.Type</span>
+                            <small class="text-muted">@note.Timestamp.ToString("t")</small>
+                        </div>
+                        <p class="mb-0 text-wrap small @(note.IsRead ? "text-muted" : "fw-bold")">@note.Message</p>
+                    </button>
+                </li>
+            }
+        }
+    </ul>
+</div>

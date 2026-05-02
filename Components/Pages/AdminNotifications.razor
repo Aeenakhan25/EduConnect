@@ -1,0 +1,50 @@
+@page "/admin/notifications"
+@using AcademicWebPortal.Interfaces
+
+<style>
+    .admin-card { border-radius: 16px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .form-label { font-weight: 600; color: #4b5563; }
+</style>
+
+<div class="container py-4">
+    <div class="d-flex align-items-center mb-4">
+        <div class="bg-primary text-white rounded-3 p-3 me-3">
+            <i class="bi bi-megaphone-fill fs-3"></i>
+        </div>
+        <h2 class="fw-bold mb-0">Broadcast Center</h2>
+    </div>
+
+    <div class="card admin-card p-4">
+        <div class="card-body">
+            <div class="mb-4">
+                <label class="form-label">Target Audience</label>
+                <select class="form-select form-select-lg" @bind="TargetRole" style="border-radius: 12px;">
+                    <option value="All">All Users (Students & Faculty)</option>
+                    <option value="Student">Students Only</option>
+                    <option value="Faculty">Faculty Only</option>
+                </select>
+                <div class="form-text mt-2">The message will be delivered instantly to the selected group's dashboard.</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Message Content</label>
+                <textarea class="form-control" rows="5" @bind="BroadcastMessage"
+                          placeholder="Type your announcement here..."
+                          style="border-radius: 12px; resize: none;"></textarea>
+            </div>
+
+            @if (!string.IsNullOrEmpty(SuccessMessage))
+            {
+                <div class="alert alert-success border-0 rounded-3 mb-4 d-flex align-items-center">
+                    <i class="bi bi-check-circle-fill me-2"></i> @SuccessMessage
+                </div>
+            }
+
+            <button class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm py-3"
+                    @onclick="HandleBroadcast"
+                    disabled="@(string.IsNullOrWhiteSpace(BroadcastMessage))">
+                <i class="bi bi-broadcast me-2"></i> Send Notification Now
+            </button>
+        </div>
+    </div>
+</div>

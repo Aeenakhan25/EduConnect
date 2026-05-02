@@ -1,0 +1,60 @@
+@using AcademicWebPortal.Models
+@using AcademicWebPortal.Models.Enums
+
+<div class="card h-100 shadow-sm border-0 transition-hover">
+    <div class="card-header bg-white border-0 pt-4 pb-0 d-flex justify-content-between">
+        <span class="badge bg-secondary">@Course.CourseCode</span>
+        <span class="badge @GetStatusBadgeClass(Course.Status)">@Course.Status</span>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title fw-bold">@Course.Title</h5>
+        <p class="card-text text-muted small">@Course.Description</p>
+        <div class="mt-3">
+            <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted small">Enrollment</span>
+                <span class="small fw-bold">@Course.CurrentEnrollmentCount / @Course.MaxCapacity</span>
+            </div>
+            <div class="progress" style="height: 6px;">
+                <div class="progress-bar" role="progressbar" 
+                     style="width: @(Course.CurrentEnrollmentCount * 100 / Course.MaxCapacity)%" 
+                     aria-valuenow="@Course.CurrentEnrollmentCount" 
+                     aria-valuemin="0" aria-valuemax="@Course.MaxCapacity"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer bg-white border-0 pb-4 pt-0">
+        <hr class="mt-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold text-primary">@Course.Credits Cr</span>
+            
+            <div class="btn-group">
+                @if (ShowAdminActions)
+                {
+                    <button class="btn btn-sm btn-outline-primary" @onclick='() => OnAction.InvokeAsync((Course.Id, "Edit"))'>
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" @onclick='() => OnAction.InvokeAsync((Course.Id, "Delete"))'>
+                        <i class="bi bi-trash"></i>
+                    </button>
+                }
+                else if (ShowEnrollAction)
+                {
+                    @if (IsEnrolled)
+                    {
+                        <button class="btn btn-sm btn-danger" @onclick='() => OnAction.InvokeAsync((Course.Id, "Drop"))'>
+                            Drop
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-sm btn-primary" 
+                                @onclick='() => OnAction.InvokeAsync((Course.Id, "Enroll"))'
+                                disabled="@(Course.Status == EnrollmentStatus.Full)">
+                            Enroll
+                        </button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

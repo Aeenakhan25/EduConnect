@@ -1,0 +1,85 @@
+@page "/courses"
+@page "/admin/courses"
+@page "/faculty/courses"
+@page "/student/enroll"
+@using AcademicWebPortal.Models
+@using AcademicWebPortal.Components.Shared
+@using AcademicWebPortal.Interfaces
+@using AcademicWebPortal.Models.Enums
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Course Catalog</h2>
+        @if (IsAdmin)
+        {
+            <button class="btn btn-success" @onclick="OpenAddModal">
+                <i class="bi bi-plus-circle"></i> Create New Course
+            </button>
+        }
+    </div>
+
+    @if (GeneralError != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @GeneralError
+            <button type="button" class="btn-close" @onclick="() => GeneralError = null"></button>
+        </div>
+    }
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var course in Courses)
+        {
+            <div class="col">
+                <CourseCard Course="course" 
+                            IsEnrolled="@EnrolledCourseIds.Contains(course.Id)"
+                            ShowAdminActions="IsAdmin"
+                            ShowEnrollAction="IsStudent"
+                            OnAction="HandleCourseAction" />
+            </div>
+        }
+    </div>
+</div>
+
+@if (ShowModal)
+{
+    <div class="modal fade show d-block modal-backdrop-custom" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">@(IsEditing ? "Edit Course" : "Create New Course")</h5>
+                    <button type="button" class="btn-close btn-close-white" @onclick="CloseModal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <EditForm Model="CurrentCourse" OnValidSubmit="HandleSubmit">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Course Code</label>
+                                <InputText class="form-control" @bind-Value="CurrentCourse.CourseCode" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Credits</label>
+                                <InputNumber class="form-control" @bind-Value="CurrentCourse.Credits" required />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <InputText class="form-control" @bind-Value="CurrentCourse.Title" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <InputTextArea class="form-control" @bind-Value="CurrentCourse.Description" rows="3" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Max Capacity</label>
+                            <InputNumber class="form-control" @bind-Value="CurrentCourse.MaxCapacity" required />
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-secondary" @onclick="CloseModal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Course</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,35 @@
+@using AcademicWebPortal.Models
+
+<div class="table-responsive rounded shadow-sm">
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="table-light">
+            <tr>
+                @if (ShowStudentName) { <th>Student</th> }
+                @if (ShowCourseName) { <th>Course</th> }
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var grade in Grades)
+            {
+                <tr>
+                    @if (ShowStudentName) { <td>@grade.Student?.FullName</td> }
+                    @if (ShowCourseName) { <td>@grade.Course?.Title</td> }
+                    <td>@grade.Score</td>
+                    <td>
+                        <span class="badge @GetGradeColor(grade.LetterGrade)">@grade.LetterGrade</span>
+                    </td>
+                    <td>@grade.Points.ToString("F1")</td>
+                </tr>
+            }
+            @if (!Grades.Any())
+            {
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">No records available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
