@@ -11,43 +11,43 @@ EduConnect goes beyond basic CRUD operations by introducing **real-world academi
 ---
 
 ## ✨ Key Highlights
-- 🎯 Role-Based Access (Admin / Faculty / Student)
-- ⚡ Event-Driven Notification System
-- 🧠 Clean Modular Architecture (Service-Based)
-- 🔐 Mock Authentication with Role Management
-- 📊 Dynamic CGPA & Grading Engine
-- 🎨 Responsive UI using Bootstrap 5
-- 🧩 Strict Code-Behind Pattern Implementation
+-  Role-Based Access (Admin / Faculty / Student)
+-  Event-Driven Notification System
+-  Clean Modular Architecture (Service-Based)
+-  Mock Authentication with Role Management
+-  Dynamic CGPA & Grading Engine
+-  Responsive UI using Bootstrap 5
+-  Strict Code-Behind Pattern Implementation
 
 ---
 
 ## 📚 Features / Core Modules
 
-### 🎓 Student Management
+### Student Management
 - Add, Edit, Delete students
 - Live search filtering
 - Student detail view with enrollments & grades
 - Prevent deletion if active enrollments exist
 
-### 📖 Course Management
+### Course Management
 - Course catalog with card UI
 - Enrollment & drop functionality
 - Capacity tracking (Open / AlmostFull / Full)
 - Same-semester re-enrollment restriction
 
-### 🧾 Grading System
+### Grading System
 - Faculty enters marks (0–100)
 - Automatic letter grade generation
 - CGPA calculation (credit-hour weighted)
 - Student grade visualization
 
-### 🔔 Notification System
+### Notification System
 - Event-driven notifications
 - Real-time UI updates
 - Notification bell with unread count
 - Mark notifications as read
 
-### 🔐 Authentication Module
+### Authentication Module
 - Mock login system
 - Role-based navigation
 - Route protection and unauthorized handling
@@ -127,10 +127,10 @@ Notification System Updates UI
 ---
 
 ## 🔮 Future Improvements
-- 🗄️ SQL Server / Database Integration
-- 🔐 JWT Authentication & Authorization
-- 🌐 REST API Layer
-- ⚡ SignalR for Real-Time Updates
-- 📅 Timetable & Attendance Module
-- 📊 Advanced Analytics Dashboard
-- 📱 Mobile App Version (Flutter)
+-  SQL Server / Database Integration
+-  JWT Authentication & Authorization
+-  REST API Layer
+-  SignalR for Real-Time Updates
+-  Timetable & Attendance Module
+-  Advanced Analytics Dashboard
+-  Mobile App Version (Flutter)
